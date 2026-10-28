@@ -26,3 +26,29 @@ jobs:
       run: |
         npm install
         npm test
+
+  python:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+    - name: Test Python version
+      run: python3 -m unittest discover -s python -v
+
+  powershell:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+    - name: Test Windows PowerShell version
+      shell: powershell
+      run: .\powershell\Option119.Tests.ps1
+
+    - name: Test PowerShell 7 version
+      shell: pwsh
+      run: .\powershell\Option119.Tests.ps1
